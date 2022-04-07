@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タイピングゲーム</title>
+
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/game.css">
+    <link rel="stylesheet" href="assets/css/keyboard.css">
+</head>
+
+<body>
+   
+
+
+    <!-- gamescreen -->
+    <div id="gamescreen">
+        <!-- 時計 -->
+        <div class="c-clock">
+            <span class="c-clock__hour"></span> <!-- 時計 -->
+            <span class="c-clock__min"></span> <!-- 分針 -->
+            <span class="c-clock__sec"></span> <!-- 秒針 -->
+            <span class="c-clock__12">12</span> <!-- 時計文字 -->
+            <span class="c-clock__3">3</span> <!-- 時計文字 -->
+            <span class="c-clock__6">6</span> <!-- 時計文字 -->
+            <span class="c-clock__9">9</span> <!-- 時計文字 -->
+        </div>
+
+        <div class="pbox">
+            <div id="boxA" class="cbox boxA">
+                <p id="score"></p>
+            </div>
+
+            <!-- 黒板 -->
+            <div class="kokuban">
+                <!-- ロード画面 -->
+                <div class="switch_screen" id="gamescreen_loading">
+                    ロード中...
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- タイトル画面 -->
+                <div class="switch_screen" id="gamescreen_title">
+                    <div id="gamescreen_title_title">タイピングゲーム</div>
+                    <div><button type="button" class="btn btn-light" onclick="switchScreen('mode')">スタート</button></div>
+                    <div><button type="button" class="btn btn-light" onclick="switchScreen('config')">設定</button></div>
+                </div>
+
+                <!-- 設定画面 -->
+                <div class="switch_screen" id="gamescreen_config">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            ローマ字表示
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            ふりがな表示
+                        </label>
+                    </div>
+                    <div><label><input type="range">BGM音量</label></div>
+                    <div><label><input type="range">SE音量</label></div>
+                    <div><label><input type="range">タイプ音量</label></div>
+                    <div><label><input type="range">ミス音量</label></div>
+                    <div><button type="button" class="btn btn-light" onclick="switchScreen('title')">戻る</button></div>
+                </div>
+
+                <!-- モード選択画面 -->
+                <div class="switch_screen" id="gamescreen_mode">
+                    <div id="gamescreen_title_title">モード選択</div>
+                    <div><button type="button" class="btn btn-light" onclick="switchScreen('space')">初級</button></div>
+                    <div><button type="button" class="btn btn-light" onclick="switchScreen('space')">中級</button></div>
+                    <div><button type="button" class="btn btn-light" onclick="switchScreen('space')">上級</button></div>
+                    <div><button type="button" class="btn btn-light" onclick="switchScreen('title')">戻る</button></div>
+                </div>
+
+                <!-- スペースキーを押して開始 -->
+                <div class="switch_screen" id="gamescreen_space">
+                    <div>スペースキーを押して開始</div>
+                </div>
+
+                <!-- プレイ画面 -->
+                <div class="switch_screen" id="gamescreen_playing">
+                    <div id="typingSound_field">
+                        <audio id="typing_sound0" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound1" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound2" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound3" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound4" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound5" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound6" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound7" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound8" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound9" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound10" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound11" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound12" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound13" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound14" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound15" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound16" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound17" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound18" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                        <audio id="typing_sound19" preload="auto">
+                            <source src="assets/audio/key_audio.mp3" type="audio/mp3">
+                        </audio>
+                    </div>
+                    <div id="moji_field">
+                        <div id="kanzi_field"></div>
+                        <div id="kana_field"></div>
+                        <div id="rome_field">
+                            <span id="typed"></span><span id="untyped"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- リザルト画面 -->
+                <div class="switch_screen" id="gamescreen_result">
+                    <img id=gamescreen_result_result src="assets/img/result.jpg" width="670px">
+                    <div>
+                        <button type="button" class="btn btn-light" onclick="switchScreen('space')">もう一度</button>
+                        <button type="button" class="btn btn-light" onclick="switchScreen('mode')">モード選択</button>
+                        <button type="button" class="btn btn-light" onclick="switchScreen('title')">タイトルに戻る</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="boxB" class="cbox boxB">
+                <p id=time></p>
+                <div>
+                    <progress id="myProgress" value="0" max="200" style="width: 85% ;"></progress>
+                </div>
+            </div>
+        </div>
+
+        <!-- キーボード -->
+        <div class="keyboard">
+            <div class="keyboard__row">
+                <div class="key--double" data-key="192">
+                    <div class="keyboard_charAlign">~</div>
+                </div>
+                <div class="key--double" id="key_Digit1" data-key="49">
+                    <div class="keyboard_charAlign">1</div>
+                </div>
+                <div class="key--double" id="key_Digit2" data-key="50">
+                    <div class="keyboard_charAlign">2</div>
+                </div>
+                <div class="key--double" id="key_Digit3" data-key="51">
+                    <div class="keyboard_charAlign">3</div>
+                </div>
+                <div class="key--double" id="key_Digit4" data-key="52">
+                    <div class="keyboard_charAlign">4</div>
+                </div>
+                <div class="key--double" id="key_Digit5" data-key="53">
+                    <div class="keyboard_charAlign">5</div>
+                </div>
+                <div class="key--double" id="key_Digit6" data-key="54">
+                    <div class="keyboard_charAlign">6</div>
+                </div>
+                <div class="key--double" id="key_Digit7" data-key="55">
+                    <div class="keyboard_charAlign">7</div>
+                </div>
+                <div class="key--double" id="key_Digit8" data-key="56">
+                    <div class="keyboard_charAlign">8</div>
+                </div>
+                <div class="key--double" id="key_Digit9" data-key="57">
+                    <div class="keyboard_charAlign">9</div>
+                </div>
+                <div class="key--double" id="key_Digit0" data-key="48">
+                    <div class="keyboard_charAlign">0</div>
+                </div>
+                <div class="key--double" id="key_Minus" data-key="189">
+                    <div class="keyboard_charAlign">-</div>
+                </div>
+                <div class="key--double" id="key_Equal" data-key="187">
+                    <div class="keyboard_charAlign">=</div>
+                </div>
+                <div class="key--bottom-right key--word key--w4" id="key_Delete" data-key="8">
+                    <span>delete</span>
+                </div>
+            </div>
+            <div class="keyboard__row">
+                <div class="key--bottom-left key--word key--w4" id="key_Tab" data-key="9">
+                    <span>tab</span>
+                </div>
+                <div class="key--letter" id="key_KeyQ" data-char="Q">Q</div>
+                <div class="key--letter" id="key_KeyW" data-char="W">W</div>
+                <div class="key--letter" id="key_KeyE" data-char="E">E</div>
+                <div class="key--letter" id="key_KeyR" data-char="R">R</div>
+                <div class="key--letter" id="key_KeyT" data-char="T">T</div>
+                <div class="key--letter" id="key_KeyY" data-char="Y">Y</div>
+                <div class="key--letter" id="key_KeyU" data-char="U">U</div>
+                <div class="key--letter" id="key_KeyI" data-char="I">I</div>
+                <div class="key--letter" id="key_KeyO" data-char="O">O</div>
+                <div class="key--letter" id="key_KeyP" data-char="P">P</div>
+                <div class="key--double" data-key="219" data-char="{[">
+                    <div class="keyboard_charAlign">[</div>
+                </div>
+                <div class="key--double" data-key="221" data-char="}]">
+                    <div class="keyboard_charAlign">]</div>
+                </div>
+                <div class="key--double" data-key="220" data-char="|\">
+                    <div class="keyboard_charAlign">\</div>
+                </div>
+            </div>
+            <div class="keyboard__row">
+                <div class="key--bottom-left key--word key--w5" id="key_CapsLock" data-key="20">
+                    <span>caps lock</span>
+                </div>
+                <div class="key--letter" id="key_KeyA" data-char="A">A</div>
+                <div class="key--letter" id="key_KeyS" data-char="S">S</div>
+                <div class="key--letter" id="key_KeyD" data-char="D">D</div>
+                <div class="key--letter" id="key_KeyF" data-char="F">F</div>
+                <div class="key--letter" id="key_KeyG" data-char="G">G</div>
+                <div class="key--letter" id="key_KeyH" data-char="H">H</div>
+                <div class="key--letter" id="key_KeyJ" data-char="J">J</div>
+                <div class="key--letter" id="key_KeyK" data-char="K">K</div>
+                <div class="key--letter" id="key_KeyL" data-char="L">L</div>
+                <div class="key--double" id="key_Semicolon" data-key="186">
+                    <div class="keyboard_charAlign">;</div>
+                </div>
+                <div class="key--double" id="key_Quote" data-key="222">
+                    <div class="keyboard_charAlign">'</div>
+                </div>
+                <div class="key--bottom-right key--word key--w5" id="key_Enter" data-key="13">
+                    <span>return</span>
+                </div>
+            </div>
+            <div class="keyboard__row">
+                <div class="key--bottom-left key--word key--w6" id="key_ShiftLeft" data-key="16">
+                    <span>shift</span>
+                </div>
+                <div class="key--letter" id="key_KeyZ" data-char="Z">Z</div>
+                <div class="key--letter" id="key_KeyX" data-char="X">X</div>
+                <div class="key--letter" id="key_KeyC" data-char="C">C</div>
+                <div class="key--letter" id="key_KeyV" data-char="V">V</div>
+                <div class="key--letter" id="key_KeyB" data-char="B">B</div>
+                <div class="key--letter" id="key_KeyN" data-char="N">N</div>
+                <div class="key--letter" id="key_KeyM" data-char="M">M</div>
+                <div class="key--double" id="key_Comma" data-key="188">
+                    <div class="keyboard_charAlign">,</div>
+                </div>
+                <div class="key--double" id="key_Period" data-key="190">
+                    <div class="keyboard_charAlign">.</div>
+                </div>
+                <div class="key--double" id="key_Slash" data-key="191">
+                    <div class="keyboard_charAlign">/</div>
+                </div>
+                <div class="key--bottom-right key--word key--w6" id="key_ShiftRight" data-key="16-R">
+                    <span>shift</span>
+                </div>
+            </div>
+            <div class="keyboard__row keyboard__row--h3">
+                <div class="key--bottom-left key--word">
+                    <span>fn</span>
+                </div>
+                <div class="key--bottom-left key--word key--w1" id="key_ControlLeft" data-key="17">
+                    <span>control</span>
+                </div>
+                <div class="key--bottom-left key--word key--w1" data-key="18">
+                    <span>option</span>
+                </div>
+                <div class="key--bottom-right key--word key--w3" data-key="91">
+                    <span>command</span>
+                </div>
+                <div class="key--double key--right key--space" id="key_Space" data-key="32" data-char=" ">
+                    &nbsp;
+                </div>
+                <div class="key--bottom-left key--word key--w3" data-key="93-R">
+                    <span>command</span>
+                </div>
+                <div class="key--bottom-left key--word key--w1" data-key="18-R">
+                    <span>option</span>
+                </div>
+                <div data-key="37" class="key--arrow">
+                    <span>&#9664;</span>
+                </div>
+                <div class="key--double key--arrow--tall" data-key="38">
+                    <div>&#9650;</div>
+                    <div>&#9660;</div>
+                </div>
+                <div data-key="39" class="key--arrow">
+                    <span>&#9654;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- JS file -->
+    <script src="assets/js/game.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
